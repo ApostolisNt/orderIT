@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">OrderIT</string>
+    <string name="select_table">SELECT TABLE...</string>
+    <string name="submit">SUBMIT</string>
+    <string name="category">Category</string>
+    <string name="order_icon">OrderIcon</string>
+    <string name="grey">GreyImg</string>
+    <string name="food_name">Food name</string>
+    <string name="price">price</string>
+    <string name="select_btn">select</string>
+    <string name="food_image">food image</string>
+    <string name="down_arrow">down arrow</string>
+</resources>

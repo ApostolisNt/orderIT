@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#080101</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="spinnercolor">#802C455E</color>
+    <color name="sumbitcolor">#802C455E</color>
+
+</resources>
