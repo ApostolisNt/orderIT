@@ -55,7 +55,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull CategoryHolder holder, int position, @NonNull Category model) {
 
-                holder.category_text.setText(""+ model.getName());
+                holder.category_text.setText(model.getName());
                 Picasso.get().load(model.getImage()).into(holder.category_image);
                 holder.v.setOnClickListener(new View.OnClickListener() {
                     @Override
