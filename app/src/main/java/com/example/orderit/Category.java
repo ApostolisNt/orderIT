@@ -4,14 +4,14 @@ public class Category {
 
     private String name;
     private String image;
+    private String categoryID;
 
+    public Category() {}
 
-    public Category() {
-    }
-
-    public Category(String name, String image) {
+    public Category(String name, String image, String categoryID) {
         this.name = name;
         this.image = image;
+        this.categoryID = categoryID;
     }
 
     public String getName() {
@@ -22,12 +22,8 @@ public class Category {
         return image;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public String getCategoryID() {
+        return categoryID;
     }
 
 }

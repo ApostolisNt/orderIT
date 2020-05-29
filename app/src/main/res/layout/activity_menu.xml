@@ -39,24 +39,26 @@
         android:layout_width="match_parent"
         android:layout_height="190dp"
         android:layout_marginBottom="220dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448"
-       />
+        app:layout_constraintVertical_bias="0.448" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_menu"
         android:layout_width="409dp"
         android:layout_height="360dp"
         android:layout_marginTop="36dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_category"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/recycler_category" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

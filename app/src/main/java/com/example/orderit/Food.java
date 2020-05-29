@@ -4,13 +4,14 @@ public class Food {
 
     private String name;
     private double price;
+    private String menuID;
 
-    public Food() {
-    }
+    public Food() {}
 
-    public Food(String name, double price) {
+    public Food(String name, double price, String menuID) {
         this.name = name;
         this.price = price;
+        this.menuID = menuID;
     }
 
     public String getName() {
@@ -29,4 +30,7 @@ public class Food {
         this.price = price;
     }
 
+    public String getMenuID() {
+        return menuID;
+    }
 }
