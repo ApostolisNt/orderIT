@@ -26,7 +26,7 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
     @Override
     protected void onBindViewHolder(@NonNull FoodHolder holder, int position, @NonNull Food model) {
         holder.food_name.setText(model.getName());
-        holder.price_name.setText(String.format("%s", model.getPrice()));
+        holder.price_name.setText(String.format("Price : %s", model.getPrice()));
     }
 
     @NonNull
