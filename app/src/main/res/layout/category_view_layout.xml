@@ -23,8 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="sans-serif-black"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:textStyle="bold"
-        tools:text="@string/category" />
+        tools:text="@string/category"
+        tools:ignore="SpUsage" />
 
 </LinearLayout>
