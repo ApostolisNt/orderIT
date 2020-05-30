@@ -1,5 +1,7 @@
 package com.example.orderit;
 
+import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -43,9 +48,12 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
     @Override
     protected void onBindViewHolder(@NonNull CategoryHolder holder, int position, @NonNull Category model) {
         holder.category_text.setText(model.getName());
-        Picasso.get()
+        GlideToVectorYou.init()
+                .with(holder.category_image.getContext())
+                .getRequestBuilder()
                 .load(model.getImage())
                 .placeholder(circularProgressDrawableOf(holder.category_image.getContext()))
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.category_image);
         holder.v.setOnClickListener(v -> {
             food_options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(

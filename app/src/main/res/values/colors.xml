@@ -6,5 +6,6 @@
 
     <color name="spinnercolor">#802C455E</color>
     <color name="sumbitcolor">#802C455E</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

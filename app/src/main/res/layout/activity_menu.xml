@@ -20,7 +20,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/grey" />
+        app:srcCompat="@drawable/blue" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -53,10 +53,13 @@
         android:id="@+id/recycler_menu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="8dp"
         android:orientation="vertical"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:paddingBottom="4dp"
+        android:requiresFadingEdge="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
