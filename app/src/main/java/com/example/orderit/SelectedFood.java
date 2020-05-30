@@ -37,6 +37,7 @@ public class SelectedFood extends AppCompatActivity {
                                 .load(image)
                                 .placeholder(Helper.circularProgressDrawableOf(getApplicationContext()))
                                 .transition(DrawableTransitionOptions.withCrossFade())
+                                .error(R.drawable.ic_launcher_foreground)
                                 .into(selected_food_img);
 
                     }

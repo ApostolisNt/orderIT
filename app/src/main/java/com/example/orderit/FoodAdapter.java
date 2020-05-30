@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.orderit.models.Food;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -36,10 +37,18 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
     @Override
     protected void onBindViewHolder(@NonNull FoodHolder holder, int position, @NonNull Food model) {
         holder.food_name.setText(model.getName());
-        Picasso.get().load(model.getImage())
+        Glide.with(holder.food_image.getContext())
+                .load(model.getImage())
                 .placeholder(circularProgressDrawableOf(holder.food_image.getContext()))
-                .fit()
+                .error(R.drawable.ic_launcher_foreground)
                 .into(holder.food_image);
+
+
+//        Picasso.get().load(model.getImage())
+//                .placeholder(circularProgressDrawableOf(holder.food_image.getContext()))
+//                .error(R.drawable.ic_launcher_foreground)
+//                .fit()
+//                .into(holder.food_image);
         holder.price_name.setText(String.format("Price : %s", model.getPrice()));
         holder.select_food.setOnClickListener(v -> {
 //            final Bundle bundle = new Bundle();

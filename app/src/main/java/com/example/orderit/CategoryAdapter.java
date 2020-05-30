@@ -91,7 +91,7 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = new View(context);
                 view.setLayoutParams(new ViewGroup.LayoutParams(
-                        dpToPixels(100, context), dpToPixels(100, context)));
+                        ViewGroup.LayoutParams.MATCH_PARENT, dpToPixels(110, context)));
                 return new RecyclerView.ViewHolder(view) {};
             }
             @Override
