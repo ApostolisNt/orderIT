@@ -1,7 +1,8 @@
 package com.example.orderit;
 
-import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.MergeAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.example.orderit.models.Category;
+import com.example.orderit.models.Food;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import static com.example.orderit.Helper.circularProgressDrawableOf;
 
@@ -62,12 +63,42 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
             if (adapter == null) {
                 FoodAdapter foodAdapter = new FoodAdapter(food_options);
                 foodAdapter.startListening();
-                recycler_menu.setAdapter(foodAdapter);
+                MergeAdapter mergeAdapter = new MergeAdapter(
+                        getMockAdapter(holder.category_image.getContext()), foodAdapter);
+                recycler_menu.setAdapter(mergeAdapter);
             } else {
-                ((FoodAdapter) adapter).updateOptions(food_options);
+                ((FoodAdapter)((MergeAdapter) adapter).getAdapters().get(1))
+                        .updateOptions(food_options);
             }
         });
 
+    }
+
+    int dpToPixels(float dp, Context context) {
+        // Converts 14 dip into its equivalent px
+        Resources r = context.getResources();
+        return (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                r.getDisplayMetrics()
+        );
+    }
+
+    private RecyclerView.Adapter<RecyclerView.ViewHolder> getMockAdapter(Context context) {
+        return new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = new View(context);
+                view.setLayoutParams(new ViewGroup.LayoutParams(
+                        dpToPixels(100, context), dpToPixels(100, context)));
+                return new RecyclerView.ViewHolder(view) {};
+            }
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { }
+            @Override
+            public int getItemCount() { return 1; }
+        };
     }
 
     @NonNull

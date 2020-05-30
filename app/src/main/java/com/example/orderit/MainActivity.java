@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,15 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         submit_button = findViewById(R.id.submit_button);
-        submit_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMenuActivity();
-            }
-        });
-
-
-
+        submit_button.setOnClickListener(v -> startActivity(
+                new Intent(this, MenuActivity.class)));
 
         final Spinner spinner = findViewById(R.id.tables_spinner);
 
@@ -50,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         final ArrayList<String> arrayList = new ArrayList<>();
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arrayList);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -90,8 +83,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void openMenuActivity(){
-        Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);
-    }
 }

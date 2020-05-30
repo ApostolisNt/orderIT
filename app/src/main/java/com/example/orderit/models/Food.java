@@ -1,4 +1,4 @@
-package com.example.orderit;
+package com.example.orderit.models;
 
 public class Food {
 

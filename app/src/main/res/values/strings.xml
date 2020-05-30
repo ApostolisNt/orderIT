@@ -10,4 +10,6 @@
     <string name="select_btn">select</string>
     <string name="food_image">food image</string>
     <string name="down_arrow">down arrow</string>
+    <string name="description">Description</string>
+    <string name="quantity">1</string>
 </resources>
