@@ -22,10 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#000000"
         android:textSize="14dp"
         android:textStyle="bold"
-        tools:text="@string/category"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        tools:text="@string/category" />
 
 </LinearLayout>

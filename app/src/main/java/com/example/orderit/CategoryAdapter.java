@@ -8,12 +8,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import static com.example.orderit.Helper.circularProgressDrawableOf;
 
 public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryAdapter.CategoryHolder> {
 
@@ -40,7 +43,10 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
     @Override
     protected void onBindViewHolder(@NonNull CategoryHolder holder, int position, @NonNull Category model) {
         holder.category_text.setText(model.getName());
-        Picasso.get().load(model.getImage()).into(holder.category_image);
+        Picasso.get()
+                .load(model.getImage())
+                .placeholder(circularProgressDrawableOf(holder.category_image.getContext()))
+                .into(holder.category_image);
         holder.v.setOnClickListener(v -> {
             food_options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(
                     foodRef.orderByChild("menuID").equalTo(model.getCategoryID()), Food.class).build();

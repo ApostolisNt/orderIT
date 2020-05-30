@@ -8,9 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.squareup.picasso.Picasso;
+
+import static com.example.orderit.Helper.circularProgressDrawableOf;
 
 public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter.FoodHolder> {
     /**
@@ -26,6 +30,10 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
     @Override
     protected void onBindViewHolder(@NonNull FoodHolder holder, int position, @NonNull Food model) {
         holder.food_name.setText(model.getName());
+        Picasso.get().load(model.getImage())
+                .placeholder(circularProgressDrawableOf(holder.food_image.getContext()))
+                .fit()
+                .into(holder.food_image);
         holder.price_name.setText(String.format("Price : %s", model.getPrice()));
     }
 
