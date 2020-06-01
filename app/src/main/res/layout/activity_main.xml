@@ -9,19 +9,18 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginLeft="92dp"
-        android:layout_marginTop="170dp"
         android:layout_marginEnd="92dp"
-        android:layout_marginRight="92dp"
+        android:contentDescription="@string/order_icon"
         android:src="@drawable/orderit_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/order_icon" />
-
+        app:layout_constraintVertical_bias="0.24" />
 
 
     <Spinner
@@ -29,18 +28,14 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="506dp"
         android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
-        android:layout_marginBottom="185dp"
         android:background="@drawable/sp_de"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.6" />
 
 
     <ImageView
@@ -56,19 +51,19 @@
 
     <Button
         android:id="@+id/submit_button"
-        android:textStyle="bold|italic"
         android:layout_width="130dp"
         android:layout_height="40dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/submit_btn"
         android:gravity="center"
         android:text="@string/submit"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tables_spinner"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/tables_spinner"
-        app:layout_constraintTop_toBottomOf="@+id/tables_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/tables_spinner"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 

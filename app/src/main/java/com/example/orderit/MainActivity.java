@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         submit_button.setOnClickListener(v -> startActivity(
                 new Intent(this, MenuActivity.class)));
 
+
+
         final Spinner spinner = findViewById(R.id.tables_spinner);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();

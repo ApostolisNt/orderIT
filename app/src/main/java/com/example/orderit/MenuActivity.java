@@ -45,7 +45,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private void loadCat() {
         cat_options = new FirebaseRecyclerOptions.Builder<Category>().setQuery(categoryRef, Category.class).build();
-        FirebaseRecyclerAdapter cat_adapter = new CategoryAdapter(cat_options, recycler_menu);
+        FirebaseRecyclerAdapter cat_adapter = new CategoryAdapter(cat_options, recycler_menu, this);
         cat_adapter.startListening();
         recycler_category.setAdapter(cat_adapter);
     }

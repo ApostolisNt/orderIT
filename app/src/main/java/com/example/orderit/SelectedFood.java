@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,6 +31,7 @@ public class SelectedFood extends AppCompatActivity {
         final String foodId = getIntent().getStringExtra("foodId");
         final TextView food_name = findViewById(R.id.food_name);
         final TextView description = findViewById(R.id.description);
+        final TextView price_name = findViewById(R.id.price_name);
         selected_food_img = findViewById(R.id.selected_food_img);
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("food");
           if (foodId != null) {
@@ -41,9 +43,11 @@ public class SelectedFood extends AppCompatActivity {
                         String image = dataSnapshot.child("image").getValue(String.class);
                         String name = dataSnapshot.child("name").getValue(String.class);
                         String descriptionStr = dataSnapshot.child("description").getValue(String.class);
+                        Double price = dataSnapshot.child("price").getValue(Double.class);
 
                         food_name.setText(name);
                         description.setText(descriptionStr);
+                        price_name.setText(String.format("Price : %s" , price + "\t $"));
                         // Calculates dynamic height to equal width
                         if (!isImageMeasured) {
                             select_food_cv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -77,10 +81,17 @@ public class SelectedFood extends AppCompatActivity {
     private void setImage(String url) {
         Glide.with(getApplicationContext())
             .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .placeholder(Helper.circularProgressDrawableOf(getApplicationContext()))
             .transition(DrawableTransitionOptions.withCrossFade())
             .error(R.drawable.ic_launcher_foreground)
             .into(selected_food_img);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }
 

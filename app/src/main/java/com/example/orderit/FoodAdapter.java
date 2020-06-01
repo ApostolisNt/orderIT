@@ -1,8 +1,7 @@
 package com.example.orderit;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.orderit.models.Food;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.squareup.picasso.Picasso;
 
 import static com.example.orderit.Helper.circularProgressDrawableOf;
 
 public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter.FoodHolder> {
+
+    private final Activity activity;
 
    // private final static String TAG = FoodAdapter.class.getSimpleName();
     /**
@@ -29,9 +30,11 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
      * @param options
+     * @param activity
      */
-    FoodAdapter(@NonNull FirebaseRecyclerOptions<Food> options) {
+    FoodAdapter(@NonNull FirebaseRecyclerOptions<Food> options, Activity activity) {
         super(options);
+        this.activity = activity;
     }
 
     @Override
@@ -39,6 +42,7 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
         holder.food_name.setText(model.getName());
         Glide.with(holder.food_image.getContext())
                 .load(model.getImage())
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .placeholder(circularProgressDrawableOf(holder.food_image.getContext()))
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.food_image);
@@ -49,18 +53,15 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
 //                .error(R.drawable.ic_launcher_foreground)
 //                .fit()
 //                .into(holder.food_image);
-        holder.price_name.setText(String.format("Price : %s", model.getPrice()));
+        holder.price_name.setText(String.format("Price : %s" , model.getPrice() + "\t $"));
         holder.select_food.setOnClickListener(v -> {
-//            final Bundle bundle = new Bundle();
-//            final String key = getRef(position).getKey();
-//            Log.d(TAG, "key: " + key);
-//            bundle.putString("id", key);
-//            v.getContext().startActivity(new Intent(v.getContext(), SelectedFood.class), bundle);
-
             //GET SELECTED FOOD TO ANOTHER ACTIVITY
             Intent intent = new Intent(v.getContext() , SelectedFood.class);
             intent.putExtra("foodId", getRef(position).getKey());
             v.getContext().startActivity(intent);
+            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+
         });
 
     }
@@ -88,4 +89,6 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
             select_food = itemView.findViewById(R.id.select_food);
         }
     }
+
+
 }

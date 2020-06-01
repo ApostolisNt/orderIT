@@ -1,11 +1,15 @@
 package com.example.orderit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,16 +33,18 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
     private FirebaseRecyclerOptions<Food> food_options;
     private DatabaseReference foodRef;
     private RecyclerView recycler_menu;
+    private final Activity activity;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
+     *  @param options
      * @param recycler_menu
+     * @param activity
      */
-    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options, RecyclerView recycler_menu) {
+    public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options, RecyclerView recycler_menu, Activity activity) {
         super(options);
+        this.activity = activity;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         foodRef = database.getReference().child("food");
         this.recycler_menu = recycler_menu;
@@ -61,7 +67,7 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
                     foodRef.orderByChild("menuID").equalTo(model.getCategoryID()), Food.class).build();
             RecyclerView.Adapter adapter = recycler_menu.getAdapter();
             if (adapter == null) {
-                FoodAdapter foodAdapter = new FoodAdapter(food_options);
+                FoodAdapter foodAdapter = new FoodAdapter(food_options, activity);
                 foodAdapter.startListening();
                 MergeAdapter mergeAdapter = new MergeAdapter(
                         getMockAdapter(holder.category_image.getContext()), foodAdapter);
@@ -89,9 +95,13 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                final Display defaultDisplay = activity.getWindowManager().getDefaultDisplay();
+                final Point size = new Point();
+                defaultDisplay.getSize(size);
+                final int height = (int) ((size.y * 0.5) - (size.y * 0.36));
                 View view = new View(context);
                 view.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, dpToPixels(110, context)));
+                        ViewGroup.LayoutParams.MATCH_PARENT, height));
                 return new RecyclerView.ViewHolder(view) {};
             }
             @Override
