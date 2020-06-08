@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,14 +25,14 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
-    private Button submit_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        submit_button = findViewById(R.id.submit_button);
+
+        Button submit_button = findViewById(R.id.submit_button);
         submit_button.setOnClickListener(v -> startActivity(
                 new Intent(this, MenuActivity.class)));
 
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView <?> parent) {
-
             }
         });
 

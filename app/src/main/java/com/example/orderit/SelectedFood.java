@@ -6,12 +6,14 @@ import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.example.orderit.models.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +34,13 @@ public class SelectedFood extends AppCompatActivity {
         final TextView food_name = findViewById(R.id.food_name);
         final TextView description = findViewById(R.id.description);
         final TextView price_name = findViewById(R.id.price_name);
+        final TextView quantity = findViewById(R.id.quantity);
+
+        final AppDatabase appDatabase = AppDatabase.getInstance(this);
+
+        final Button addToCart = findViewById(R.id.add_to_cart);
+
+
         selected_food_img = findViewById(R.id.selected_food_img);
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("food");
           if (foodId != null) {
@@ -44,6 +53,11 @@ public class SelectedFood extends AppCompatActivity {
                         String name = dataSnapshot.child("name").getValue(String.class);
                         String descriptionStr = dataSnapshot.child("description").getValue(String.class);
                         Double price = dataSnapshot.child("price").getValue(Double.class);
+
+                        addToCart.setOnClickListener(v -> {
+                            final Order order = new Order(foodId, name, Integer.parseInt(quantity.getText().toString()), price);
+                            appDatabase.orderDao().insertAll(order);
+                        });
 
                         food_name.setText(name);
                         description.setText(descriptionStr);
