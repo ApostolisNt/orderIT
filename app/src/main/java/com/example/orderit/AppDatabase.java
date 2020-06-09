@@ -20,7 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context,
                     AppDatabase.class, "OrderItDb")
-                    .setTransactionExecutor(Executors.newSingleThreadExecutor())
+//                    .allowMainThreadQueries()
                     .build();
         }
         return instance;

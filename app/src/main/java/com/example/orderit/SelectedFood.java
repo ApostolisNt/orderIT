@@ -3,12 +3,16 @@ package com.example.orderit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -35,11 +39,11 @@ public class SelectedFood extends AppCompatActivity {
         final TextView description = findViewById(R.id.description);
         final TextView price_name = findViewById(R.id.price_name);
         final TextView quantity = findViewById(R.id.quantity);
-
-        final AppDatabase appDatabase = AppDatabase.getInstance(this);
+        final View cart = findViewById(R.id.cart);
+        cart.setOnClickListener(v -> startActivity(new Intent(this, CartActivity.class)));
 
         final Button addToCart = findViewById(R.id.add_to_cart);
-
+        final OrderViewModel orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
 
         selected_food_img = findViewById(R.id.selected_food_img);
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("food");
@@ -56,7 +60,8 @@ public class SelectedFood extends AppCompatActivity {
 
                         addToCart.setOnClickListener(v -> {
                             final Order order = new Order(foodId, name, Integer.parseInt(quantity.getText().toString()), price);
-                            appDatabase.orderDao().insertAll(order);
+                            orderViewModel.insert(order);
+                            Toast.makeText(SelectedFood.this, "valbuenaaa", Toast.LENGTH_SHORT).show();
                         });
 
                         food_name.setText(name);

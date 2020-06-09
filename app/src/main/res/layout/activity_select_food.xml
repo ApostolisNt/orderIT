@@ -195,4 +195,15 @@
         app:layout_constraintGuide_begin="570dp"
         app:layout_constraintGuide_percent="0.78" />
 
+    <ImageView
+        android:id="@+id/cart"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.24000001"
+        app:srcCompat="@drawable/cart" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
