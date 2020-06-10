@@ -23,9 +23,12 @@ interface OrderDao {
     @Query("SELECT * FROM `Order`")
     fun getOrdersTest(): List<Order>
 
+    @Query("DELETE FROM 'Order'")
+    suspend fun deleteAllOrders()
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAll(vararg orders: Order?)
+    suspend fun insertAll(vararg orders: Order)
 
     @Delete
-    suspend fun delete(order: Order?)
+    suspend fun delete(vararg order: Order)
 }

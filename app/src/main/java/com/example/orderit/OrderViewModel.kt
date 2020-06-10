@@ -1,6 +1,7 @@
 package com.example.orderit
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -18,9 +19,10 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     val allOrders: LiveData<List<Order>>
 
     init {
-        val wordsDao = AppDatabase.getInstance(application).orderDao()
-        repository = OrderRepository(wordsDao)
+        val orderDao = AppDatabase.getInstance(application).orderDao()
+        repository = OrderRepository(orderDao)
         allOrders = repository.allOrders
+
     }
 
     /**
@@ -28,5 +30,13 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun insert(vararg orders: Order) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(*orders)
+    }
+
+    fun delete(vararg orders: Order) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(*orders)
+    }
+
+    fun deleteAllOrders() = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteAllOrders()
     }
 }

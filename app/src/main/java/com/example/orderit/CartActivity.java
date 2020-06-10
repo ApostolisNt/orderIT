@@ -21,7 +21,7 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         RecyclerView cartRecycler = findViewById(R.id.cartRecycler);
         final OrderViewModel orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
-        final CartItemAdapter cartItemAdapter = new CartItemAdapter();
+        final CartItemAdapter cartItemAdapter = new CartItemAdapter(orderViewModel);
         orderViewModel.getAllOrders().observe(this, cartItemAdapter::setOrders);
         cartRecycler.setAdapter(cartItemAdapter);
     }

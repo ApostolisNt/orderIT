@@ -72,6 +72,7 @@
             app:layout_constraintGuide_percent="0.65" />
 
         <ImageView
+            android:id="@+id/delete"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"

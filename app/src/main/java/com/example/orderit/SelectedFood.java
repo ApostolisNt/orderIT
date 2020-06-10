@@ -61,7 +61,7 @@ public class SelectedFood extends AppCompatActivity {
                         addToCart.setOnClickListener(v -> {
                             final Order order = new Order(foodId, name, Integer.parseInt(quantity.getText().toString()), price);
                             orderViewModel.insert(order);
-                            Toast.makeText(SelectedFood.this, "valbuenaaa", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SelectedFood.this, "Added To Cart", Toast.LENGTH_SHORT).show();
                         });
 
                         food_name.setText(name);

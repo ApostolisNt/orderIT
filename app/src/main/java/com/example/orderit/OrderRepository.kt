@@ -15,4 +15,13 @@ class OrderRepository(private val orderDao: OrderDao) {
         orderDao.insertAll(*orders)
         Log.d("repository", orders.toString())
     }
+
+    suspend fun delete(vararg orders: Order) {
+        orderDao.delete(*orders)
+        Log.d("repository", orders.toString())
+    }
+
+    suspend fun deleteAllOrders() {
+        orderDao.deleteAllOrders()
+    }
 }
