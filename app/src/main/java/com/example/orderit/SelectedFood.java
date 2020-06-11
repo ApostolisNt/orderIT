@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,8 @@ public class SelectedFood extends AppCompatActivity {
         final TextView price_name = findViewById(R.id.price_name);
         final TextView quantity = findViewById(R.id.quantity);
         final View cart = findViewById(R.id.cart);
+        final ImageView plus = findViewById(R.id.plus);
+        final ImageView minus = findViewById(R.id.minus);
         cart.setOnClickListener(v -> startActivity(new Intent(this, CartActivity.class)));
 
         final Button addToCart = findViewById(R.id.add_to_cart);
@@ -50,13 +53,14 @@ public class SelectedFood extends AppCompatActivity {
           if (foodId != null) {
             ref.child(foodId).addValueEventListener(new ValueEventListener() {
                 private boolean isImageMeasured = false;
+                @SuppressLint("DefaultLocale")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        String image = dataSnapshot.child("image").getValue(String.class);
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        String descriptionStr = dataSnapshot.child("description").getValue(String.class);
-                        Double price = dataSnapshot.child("price").getValue(Double.class);
+                        final String image = dataSnapshot.child("image").getValue(String.class);
+                        final String name = dataSnapshot.child("name").getValue(String.class);
+                        final String descriptionStr = dataSnapshot.child("description").getValue(String.class);
+                        final Double price = dataSnapshot.child("price").getValue(Double.class);
 
                         addToCart.setOnClickListener(v -> {
                             final Order order = new Order(foodId, name, Integer.parseInt(quantity.getText().toString()), price);
@@ -67,6 +71,14 @@ public class SelectedFood extends AppCompatActivity {
                         food_name.setText(name);
                         description.setText(descriptionStr);
                         price_name.setText(String.format("Price : %s" , price + "\t $"));
+                        plus.setOnClickListener(v -> quantity.setText(
+                                String.valueOf(Integer.parseInt(quantity.getText().toString())+1))
+                        );
+                        minus.setOnClickListener(v -> {
+                            final int val = Integer.parseInt(quantity.getText().toString());
+                            if (val == 1) return;
+                            quantity.setText(String.format("%d", val - 1));
+                        });
                         // Calculates dynamic height to equal width
                         if (!isImageMeasured) {
                             select_food_cv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
