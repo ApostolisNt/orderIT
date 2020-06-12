@@ -28,11 +28,15 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
-    fun insert(vararg orders: Order) = viewModelScope.launch(Dispatchers.IO) {
+    fun insertOrders(vararg orders: Order) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(*orders)
     }
 
-    fun delete(vararg orders: Order) = viewModelScope.launch(Dispatchers.IO) {
+    fun updateOrder(order: Order) = viewModelScope.launch(Dispatchers.IO) {
+        repository.update(order)
+    }
+
+    fun deleteOrders(vararg orders: Order) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(*orders)
     }
 

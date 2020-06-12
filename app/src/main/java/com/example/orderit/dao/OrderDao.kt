@@ -31,4 +31,7 @@ interface OrderDao {
 
     @Delete
     suspend fun delete(vararg order: Order)
+
+    @Update
+    suspend fun update(order: Order)
 }

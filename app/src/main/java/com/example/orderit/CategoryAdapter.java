@@ -95,7 +95,7 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
                     ((FoodAdapter)((MergeAdapter) adapter).getAdapters().get(1))
                             .updateOptions(food_options);
                 }
-            } else holder.category_image.animate().rotation(0F).start();
+            } /*else holder.category_image.animate().rotation(0F).start();*/
 
         }
     }

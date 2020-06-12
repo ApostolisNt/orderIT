@@ -16,6 +16,10 @@ class OrderRepository(private val orderDao: OrderDao) {
         Log.d("repository", orders.toString())
     }
 
+    suspend fun update(order: Order) {
+        orderDao.update(order)
+    }
+
     suspend fun delete(vararg orders: Order) {
         orderDao.delete(*orders)
         Log.d("repository", orders.toString())

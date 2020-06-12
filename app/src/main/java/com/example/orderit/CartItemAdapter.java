@@ -1,7 +1,6 @@
 package com.example.orderit;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +18,11 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
 
     private List<Order> list;
     private final OrderViewModel orderViewModel;
+    final TextView total_price;
 
-    public CartItemAdapter(OrderViewModel orderViewModel) {
+    public CartItemAdapter(OrderViewModel orderViewModel, TextView total_price) {
         this.orderViewModel = orderViewModel;
+        this.total_price = total_price;
     }
 
     public void setOrders(List<Order> list){
@@ -41,27 +42,39 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
     public void onBindViewHolder(@NonNull CartItemHolder holder, int position) {
         final Order order = list.get(position);
 //        Log.d("adapter", order.getProductID());
+        final int quantity = order.getQuantity();
         holder.food_name.setText(order.getProductName());
-        holder.quantity.setText(String.valueOf(order.getQuantity()));
-        final int quantity = Integer.parseInt((holder.quantity.getText().toString()));
-        holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * (quantity)));
+        holder.quantity.setText(String.valueOf(quantity));
+        holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * quantity));
         holder.plus_cart.setOnClickListener(v -> {
-            holder.quantity.setText(String.valueOf(Integer.parseInt(holder.quantity.getText().toString()) + 1));
-            final int quantity_plus = Integer.parseInt((holder.quantity.getText().toString()));
-            holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * (quantity_plus)));
+            order.setQuantity(order.getQuantity() + 1);
+            holder.quantity.setText(String.valueOf(order.getQuantity()));
+            holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * order.getQuantity()));
+            // calculate total price
+            calculateTotalPrice(order.getPrice());
+            orderViewModel.updateOrder(order);
         });
 
         holder.minus_cart.setOnClickListener(v -> {
-            final int quantity_minus = Integer.parseInt(holder.quantity.getText().toString());
-            if (quantity_minus == 1) return;
-            final int newQuantityValue = quantity_minus - 1;
-            holder.quantity.setText(String.format("%d", newQuantityValue));
-            final double totalPrice = newQuantityValue * order.getPrice();
-            holder.price_value.setText(String.format("%.2f\u20ac", totalPrice));
+            if (order.getQuantity() == 1) return;
+            order.setQuantity(order.getQuantity() - 1);
+            holder.quantity.setText(String.valueOf(order.getQuantity()));
+            holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * order.getQuantity()));
+            // calculate total price
+            calculateTotalPrice(-order.getPrice());
+            orderViewModel.updateOrder(order);
         });
 
 
-        holder.delete.setOnClickListener(v -> orderViewModel.delete(order));
+        holder.delete.setOnClickListener(v -> orderViewModel.deleteOrders(order));
+    }
+
+    private void calculateTotalPrice(double addedPrice) {
+        // calculate total price
+        final CharSequence priceText = total_price.getText();
+        final double price = Double.parseDouble(String.valueOf(priceText));
+        final double totalPrice = price + addedPrice;
+        total_price.setText(String.valueOf(totalPrice));
     }
 
     @Override
