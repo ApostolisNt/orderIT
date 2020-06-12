@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -14,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.selection.ItemDetailsLookup;
+import androidx.recyclerview.selection.SelectionTracker;
 import androidx.recyclerview.widget.MergeAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +30,8 @@ import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.jetbrains.annotations.NotNull;
+
 import static com.example.orderit.Helper.circularProgressDrawableOf;
 
 public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryAdapter.CategoryHolder> {
@@ -34,6 +40,7 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
     private DatabaseReference foodRef;
     private RecyclerView recycler_menu;
     private final Activity activity;
+    public SelectionTracker<String> tracker = null;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -48,9 +55,13 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         foodRef = database.getReference().child("food");
         this.recycler_menu = recycler_menu;
+        this.setHasStableIds(true);
     }
 
-
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
     @Override
     protected void onBindViewHolder(@NonNull CategoryHolder holder, int position, @NonNull Category model) {
@@ -62,22 +73,31 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
                 .placeholder(circularProgressDrawableOf(holder.category_image.getContext()))
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.category_image);
-        holder.v.setOnClickListener(v -> {
-            food_options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(
-                    foodRef.orderByChild("menuID").equalTo(model.getCategoryID()), Food.class).build();
-            RecyclerView.Adapter adapter = recycler_menu.getAdapter();
-            if (adapter == null) {
-                FoodAdapter foodAdapter = new FoodAdapter(food_options, activity);
-                foodAdapter.startListening();
-                MergeAdapter mergeAdapter = new MergeAdapter(
-                        getMockAdapter(holder.category_image.getContext()), foodAdapter);
-                recycler_menu.setAdapter(mergeAdapter);
-            } else {
-                ((FoodAdapter)((MergeAdapter) adapter).getAdapters().get(1))
-                        .updateOptions(food_options);
-            }
-        });
+        /*holder.v.setOnClickListener(v -> {
+                });*/
+        // onSelect
+        if (tracker != null) {
+            final boolean selected = tracker.isSelected(model.getCategoryID());
+            if (selected) {
+                holder.category_image.animate()
+                        .rotationBy(360F)
+                        .start();
+                food_options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(
+                        foodRef.orderByChild("menuID").equalTo(model.getCategoryID()), Food.class).build();
+                RecyclerView.Adapter adapter = recycler_menu.getAdapter();
+                if (adapter == null) {
+                    FoodAdapter foodAdapter = new FoodAdapter(food_options, activity);
+                    foodAdapter.startListening();
+                    MergeAdapter mergeAdapter = new MergeAdapter(
+                            getMockAdapter(holder.category_image.getContext()), foodAdapter);
+                    recycler_menu.setAdapter(mergeAdapter);
+                } else {
+                    ((FoodAdapter)((MergeAdapter) adapter).getAdapters().get(1))
+                            .updateOptions(food_options);
+                }
+            } else holder.category_image.animate().rotation(0F).start();
 
+        }
     }
 
     int dpToPixels(float dp, Context context) {
@@ -118,7 +138,7 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
         return new CategoryHolder(v);
     }
 
-    static class CategoryHolder extends RecyclerView.ViewHolder {
+    class CategoryHolder extends RecyclerView.ViewHolder {
 
         ImageView category_image;
         TextView category_text;
@@ -131,5 +151,23 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
             v = itemView;
         }
 
+        ItemDetailsLookup.ItemDetails<String> getItemDetails()  {
+            return new ItemDetailsLookup.ItemDetails<String>() {
+                @Override
+                public int getPosition() {
+                    return getAdapterPosition();
+                }
+
+                @Nullable
+                @Override
+                public String getSelectionKey() {
+                    return getItem(getAdapterPosition()).getCategoryID();
+                }
+                @Override
+                public boolean inSelectionHotspot(@NotNull MotionEvent e) {
+                    return true;
+                }
+            };
+        }
     }
 }

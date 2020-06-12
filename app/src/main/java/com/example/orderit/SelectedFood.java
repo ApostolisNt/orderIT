@@ -70,7 +70,7 @@ public class SelectedFood extends AppCompatActivity {
 
                         food_name.setText(name);
                         description.setText(descriptionStr);
-                        price_name.setText(String.format("Price : %s" , price + "\t $"));
+                        price_name.setText(String.format("Price : %.2f\u20ac" , price ));
                         plus.setOnClickListener(v -> quantity.setText(
                                 String.valueOf(Integer.parseInt(quantity.getText().toString())+1))
                         );

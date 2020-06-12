@@ -1,26 +1,18 @@
 package com.example.orderit;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
-import android.content.Context;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.orderit.models.Category;
 import com.example.orderit.models.Order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolder> {
@@ -48,10 +40,27 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
     @Override
     public void onBindViewHolder(@NonNull CartItemHolder holder, int position) {
         final Order order = list.get(position);
-        Log.d("adapter", order.getProductID());
+//        Log.d("adapter", order.getProductID());
         holder.food_name.setText(order.getProductName());
-        holder.price_name.setText(String.format("%f", order.getPrice()));
         holder.quantity.setText(String.valueOf(order.getQuantity()));
+        final int quantity = Integer.parseInt((holder.quantity.getText().toString()));
+        holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * (quantity)));
+        holder.plus_cart.setOnClickListener(v -> {
+            holder.quantity.setText(String.valueOf(Integer.parseInt(holder.quantity.getText().toString()) + 1));
+            final int quantity_plus = Integer.parseInt((holder.quantity.getText().toString()));
+            holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * (quantity_plus)));
+        });
+
+        holder.minus_cart.setOnClickListener(v -> {
+            final int quantity_minus = Integer.parseInt(holder.quantity.getText().toString());
+            if (quantity_minus == 1) return;
+            final int newQuantityValue = quantity_minus - 1;
+            holder.quantity.setText(String.format("%d", newQuantityValue));
+            final double totalPrice = newQuantityValue * order.getPrice();
+            holder.price_value.setText(String.format("%.2f\u20ac", totalPrice));
+        });
+
+
         holder.delete.setOnClickListener(v -> orderViewModel.delete(order));
     }
 
@@ -65,16 +74,20 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
     public static class CartItemHolder extends RecyclerView.ViewHolder {
 
         TextView food_name;
-        TextView price_name;
+        TextView price_value;
         TextView quantity;
         ImageView delete;
+        ImageView plus_cart;
+        ImageView minus_cart;
 
         public CartItemHolder(@NonNull View itemView) {
             super(itemView);
             food_name = itemView.findViewById(R.id.food_name);
-            price_name = itemView.findViewById(R.id.price_name);
+            price_value = itemView.findViewById(R.id.price_name);
             quantity = itemView.findViewById(R.id.quantity);
             delete = itemView.findViewById(R.id.delete);
+            plus_cart = itemView.findViewById(R.id.plus_cart);
+            minus_cart = itemView.findViewById(R.id.minus_cart);
         }
     }
 }

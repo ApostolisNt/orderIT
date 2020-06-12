@@ -76,13 +76,13 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/minus_cart"
             app:layout_constraintStart_toStartOf="@+id/guideline10"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_delete" />
 
         <ImageView
-            android:id="@+id/imageButton"
+            android:id="@+id/minus_cart"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
@@ -100,12 +100,12 @@
             android:textColor="#000000"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/plus_cart"
+            app:layout_constraintStart_toEndOf="@+id/minus_cart"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageButton2"
+            android:id="@+id/plus_cart"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginEnd="24dp"

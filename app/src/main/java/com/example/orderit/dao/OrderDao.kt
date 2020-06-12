@@ -26,7 +26,7 @@ interface OrderDao {
     @Query("DELETE FROM 'Order'")
     suspend fun deleteAllOrders()
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg orders: Order)
 
     @Delete

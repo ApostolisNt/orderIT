@@ -1,5 +1,6 @@
 package com.example.orderit;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
         this.activity = activity;
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onBindViewHolder(@NonNull FoodHolder holder, int position, @NonNull Food model) {
         holder.food_name.setText(model.getName());
@@ -53,7 +55,7 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
 //                .error(R.drawable.ic_launcher_foreground)
 //                .fit()
 //                .into(holder.food_image);
-        holder.price_name.setText(String.format("Price : %s" , model.getPrice() + "\t $"));
+        holder.price_name.setText(String.format("Price : %.2f\u20ac" , model.getPrice()));
         holder.select_food.setOnClickListener(v -> {
             //GET SELECTED FOOD TO ANOTHER ACTIVITY
             Intent intent = new Intent(v.getContext() , SelectedFood.class);
