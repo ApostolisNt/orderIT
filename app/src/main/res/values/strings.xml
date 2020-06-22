@@ -17,6 +17,11 @@
     <string name="table_num">Table : 1</string>
     <string name="total">Total :</string>
     <string name="payment">Payment</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete_button">delete button</string>
+    <string name="minus_button_cart">minus button cart</string>
+    <string name="plus_button_cart">plus button cart</string>
+    <string name="cart_button">cart button</string>
+    <string name="plus_button">plus button</string>
+    <string name="minus_button">minus button</string>
+    <string name="selected_food_image">selected food image</string>
 </resources>

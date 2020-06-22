@@ -59,7 +59,7 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
             if (order.getQuantity() == 1) return;
             order.setQuantity(order.getQuantity() - 1);
             holder.quantity.setText(String.valueOf(order.getQuantity()));
-            holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * order.getQuantity()));
+            holder.price_value.setText(String.format("%.2f\u20ac",order.getPrice() * order.getQuantity()));
             // calculate total price
             calculateTotalPrice(-order.getPrice());
             orderViewModel.updateOrder(order);
@@ -69,12 +69,14 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
         holder.delete.setOnClickListener(v -> orderViewModel.deleteOrders(order));
     }
 
+    @SuppressLint("DefaultLocale")
     private void calculateTotalPrice(double addedPrice) {
         // calculate total price
         final CharSequence priceText = total_price.getText();
-        final double price = Double.parseDouble(String.valueOf(priceText));
+        final String s = priceText.subSequence(0, priceText.length() - 1).toString().replace(',', '.');
+        final double price = Double.parseDouble(s);
         final double totalPrice = price + addedPrice;
-        total_price.setText(String.valueOf(totalPrice));
+        total_price.setText(String.format("%.2f\u20ac", totalPrice));
     }
 
     @Override

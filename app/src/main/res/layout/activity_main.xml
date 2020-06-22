@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/orderit_icon"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
@@ -34,20 +34,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/orderit_icon"
         app:layout_constraintVertical_bias="0.6" />
 
 
     <ImageView
+        android:id="@+id/down_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:contentDescription="@string/down_arrow"
         android:src="@drawable/down_arrow"
         app:layout_constraintBottom_toBottomOf="@+id/tables_spinner"
         app:layout_constraintEnd_toEndOf="@+id/tables_spinner"
-        app:layout_constraintTop_toTopOf="@+id/tables_spinner"
-        android:contentDescription="@string/down_arrow" />
+        app:layout_constraintHorizontal_bias="0.90"
+        app:layout_constraintStart_toStartOf="@+id/tables_spinner"
+        app:layout_constraintTop_toTopOf="@+id/tables_spinner" />
 
     <Button
         android:id="@+id/submit_button"

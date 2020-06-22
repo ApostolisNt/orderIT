@@ -7,26 +7,26 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/blue_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/grey"
+        android:contentDescription="@string/blue"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/first_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/blue" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ordertit_icon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/order_icon"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintBottom_toBottomOf="@+id/blue_icon"
+        app:layout_constraintEnd_toStartOf="@+id/second_guideline"
+        app:layout_constraintStart_toStartOf="@+id/first_guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.14"
         app:srcCompat="@drawable/orderit_icon" />
@@ -37,8 +37,8 @@
         android:layout_height="190dp"
         app:cardCornerRadius="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/second_guideline"
+        app:layout_constraintStart_toStartOf="@+id/first_guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.40">
 
@@ -46,6 +46,7 @@
             android:id="@+id/selected_food_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/selected_food_image"
             android:scaleType="centerCrop"
             tools:srcCompat="@drawable/ic_launcher_background" />
 
@@ -97,9 +98,9 @@
         android:layout_marginTop="10dp"
         android:text="@string/price"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/second_horizontal_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/second_guideline"
+        app:layout_constraintStart_toStartOf="@+id/first_guideline"
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <TextView
@@ -112,32 +113,34 @@
         app:layout_constraintBottom_toTopOf="@+id/add_to_cart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+        app:layout_constraintTop_toTopOf="@+id/second_horizontal_guideline" />
 
     <ImageView
         android:id="@+id/minus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        android:contentDescription="@string/minus_button"
+        app:layout_constraintBottom_toTopOf="@+id/third_horizontal_guideline"
         app:layout_constraintEnd_toStartOf="@+id/quantity"
         app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/second_horizontal_guideline"
         app:srcCompat="@drawable/minus" />
 
     <ImageView
         android:id="@+id/plus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        android:contentDescription="@string/plus_button"
+        app:layout_constraintBottom_toTopOf="@+id/third_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toEndOf="@+id/quantity"
-        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/second_horizontal_guideline"
         app:srcCompat="@drawable/more" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/first_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -160,27 +163,27 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/second_guideline"
+        app:layout_constraintStart_toStartOf="@+id/first_guideline"
+        app:layout_constraintTop_toTopOf="@+id/third_horizontal_guideline"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/first_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
+        android:id="@+id/second_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
+        android:id="@+id/third_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -188,7 +191,7 @@
         app:layout_constraintGuide_percent="0.87" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
+        android:id="@+id/second_horizontal_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -199,9 +202,10 @@
         android:id="@+id/cart"
         android:layout_width="0dp"
         android:layout_height="35dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        android:contentDescription="@string/cart_button"
+        app:layout_constraintBottom_toTopOf="@+id/first_horizontal_guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/second_guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.24000001"
         app:srcCompat="@drawable/cart" />

@@ -1,6 +1,8 @@
 package com.example.orderit;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String tableName = parent.getItemAtPosition(position).toString();
                 Toast.makeText(parent.getContext(), "Table: " + tableName, Toast.LENGTH_LONG).show();
+                SharedPreferences sharedPref = getSharedPreferences("shared", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("tableName", tableName);
+                editor.apply();
             }
             @Override
             public void onNothingSelected(AdapterView <?> parent) {

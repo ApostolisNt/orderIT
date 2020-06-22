@@ -8,5 +8,7 @@
     <color name="sumbitcolor">#802C455E</color>
     <color name="white">#FFFFFF</color>
     <color name="colorSecondary">#C2DDDDDD</color>
+    <color name="green">#C279FF00</color>
+
 
 </resources>
