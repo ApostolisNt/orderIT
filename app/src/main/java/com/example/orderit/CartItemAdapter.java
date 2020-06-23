@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.orderit.models.Order;
 
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolder> {
 
@@ -84,6 +86,12 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
         if(list != null) return list.size();
         else
             return 0;
+    }
+
+    String getReceipt() {
+        return list.stream().map(order -> {
+            return String.format("%s: %s x %s", order.getProductName(), order.getPrice(), order.getQuantity());
+        }).collect(Collectors.joining("\n"));
     }
 
     public static class CartItemHolder extends RecyclerView.ViewHolder {

@@ -118,35 +118,35 @@
         app:layout_constraintStart_toStartOf="@+id/endGuideline"
         app:layout_constraintTop_toBottomOf="@+id/blue_icon" />
 
-<!--    <Button-->
-<!--        android:id="@+id/payment"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32dp"-->
-<!--        android:background="@drawable/add_to_cart_btn"-->
-<!--        android:text="@string/payment"-->
-<!--        android:textColor="#000000"-->
-<!--        android:textSize="18sp"-->
-<!--        android:textStyle="italic"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/endGuideline"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/startGuideline"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/view" />-->
-
-    <com.spark.submitbutton.SubmitButton
+    <Button
         android:id="@+id/payment"
-        android:layout_width="10dp"
-        android:layout_height="30dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/add_to_cart_btn"
         android:text="@string/payment"
-        android:textColor="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        app:sub_btn_background="@color/white"
-        app:sub_btn_duration="3000"
-        app:sub_btn_line_color="@color/green"
-        app:sub_btn_ripple_color="@color/green"
-        app:sub_btn_tick_color="@color/white" />
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/endGuideline"
+        app:layout_constraintStart_toStartOf="@+id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+<!--    <com.spark.submitbutton.SubmitButton-->
+<!--        android:id="@+id/payment"-->
+<!--        android:layout_width="10dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:text="@string/payment"-->
+<!--        android:textColor="@color/gray"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/view"-->
+<!--        app:sub_btn_background="@color/white"-->
+<!--        app:sub_btn_duration="3000"-->
+<!--        app:sub_btn_line_color="@color/green"-->
+<!--        app:sub_btn_ripple_color="@color/green"-->
+<!--        app:sub_btn_tick_color="@color/white" />-->
 
     <androidx.constraintlayout.widget.Guideline
             android:id="@+id/startGuideline"

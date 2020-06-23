@@ -28,6 +28,15 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
     }
 }
 
@@ -49,9 +58,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
     implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
     implementation 'me.spark:submitbutton:1.0.1'
-
-
-
 
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0'
@@ -106,4 +112,11 @@ dependencies {
 
     def activity_version = "1.1.0"
     implementation "androidx.activity:activity-ktx:$activity_version"
+
+    implementation("com.squareup.okhttp3:okhttp:4.7.2")
+
+
+    // https://mvnrepository.com/artifact/org.cups4j/cups4j
+   // implementation group: 'org.cups4j', name: 'cups4j', version: '0.7.6'
+
 }
