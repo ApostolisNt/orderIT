@@ -43,7 +43,11 @@ public class SelectedFood extends AppCompatActivity {
         final View cart = findViewById(R.id.cart);
         final ImageView plus = findViewById(R.id.plus);
         final ImageView minus = findViewById(R.id.minus);
-        cart.setOnClickListener(v -> startActivity(new Intent(this, CartActivity.class)));
+        //go to cartActivity
+        cart.setOnClickListener(v -> {
+            startActivity(new Intent(this, CartActivity.class));
+            overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
+        });
 
         final Button addToCart = findViewById(R.id.add_to_cart);
         final OrderViewModel orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);

@@ -47,11 +47,11 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
         final int quantity = order.getQuantity();
         holder.food_name.setText(order.getProductName());
         holder.quantity.setText(String.valueOf(quantity));
-        holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * quantity));
+        holder.price_value.setText(String.format("Price : %.2f\u20ac", order.getPrice() * quantity));
         holder.plus_cart.setOnClickListener(v -> {
             order.setQuantity(order.getQuantity() + 1);
             holder.quantity.setText(String.valueOf(order.getQuantity()));
-            holder.price_value.setText(String.format("%.2f\u20ac", order.getPrice() * order.getQuantity()));
+            holder.price_value.setText(String.format("Price : %.2f\u20ac", order.getPrice() * order.getQuantity()));
             // calculate total price
             calculateTotalPrice(order.getPrice());
             orderViewModel.updateOrder(order);
@@ -61,7 +61,7 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
             if (order.getQuantity() == 1) return;
             order.setQuantity(order.getQuantity() - 1);
             holder.quantity.setText(String.valueOf(order.getQuantity()));
-            holder.price_value.setText(String.format("%.2f\u20ac",order.getPrice() * order.getQuantity()));
+            holder.price_value.setText(String.format("Price : %.2f\u20ac",order.getPrice() * order.getQuantity()));
             // calculate total price
             calculateTotalPrice(-order.getPrice());
             orderViewModel.updateOrder(order);

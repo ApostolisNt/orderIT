@@ -57,7 +57,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_category"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="115dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -81,6 +81,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.36" />
+
+    <ImageView
+        android:id="@+id/cart"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:contentDescription="@string/cart_button"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ordertit_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
