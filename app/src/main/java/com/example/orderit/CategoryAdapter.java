@@ -35,7 +35,6 @@ import static com.example.orderit.Helper.circularProgressDrawableOf;
 
 public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryAdapter.CategoryHolder> {
 
-    private FirebaseRecyclerOptions<Food> food_options;
     private DatabaseReference foodRef;
     private RecyclerView recycler_menu;
     private final Activity activity;
@@ -75,13 +74,13 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
         /*holder.v.setOnClickListener(v -> {
                 });*/
         // onSelect
-        if (tracker != null) {
-            final boolean selected = tracker.isSelected(model.getCategoryID());
-            if (selected) {
-                holder.category_image.animate()
-                        .rotationBy(360F)
-                        .start();
-                food_options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(
+//        if (tracker != null) {
+//            final boolean selected = tracker.isSelected(model.getCategoryID());
+//            if (selected) {
+//                holder.category_image.animate()
+//                        .rotationBy(360F)
+//                        .start();
+                FirebaseRecyclerOptions<Food> food_options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(
                         foodRef.orderByChild("menuID").equalTo(model.getCategoryID()), Food.class).build();
                 RecyclerView.Adapter adapter = recycler_menu.getAdapter();
                 if (adapter == null) {
@@ -91,12 +90,12 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
                             getMockAdapter(holder.category_image.getContext()), foodAdapter);
                     recycler_menu.setAdapter(mergeAdapter);
                 } else {
-                    ((FoodAdapter)((MergeAdapter) adapter).getAdapters().get(1))
+                    ((FoodAdapter) ((MergeAdapter) adapter).getAdapters().get(1))
                             .updateOptions(food_options);
                 }
-            } /*else holder.category_image.animate().rotation(0F).start();*/
+          //  }/*else holder.category_image.animate().rotation(0F).start();*/
 
-        }
+        //}
     }
 
     int dpToPixels(float dp, Context context) {

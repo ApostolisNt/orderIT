@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.spark.submitbutton.SubmitButton;
+
 public class CartActivity extends AppCompatActivity {
 
     @SuppressLint({"DefaultLocale", "ShowToast"})
@@ -18,7 +20,7 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         RecyclerView cartRecycler = findViewById(R.id.cartRecycler);
         final TextView total_price = findViewById(R.id.total_price);
-        final Button paymentButton = findViewById(R.id.payment);
+        final SubmitButton paymentButton = findViewById(R.id.payment);
         final OrderViewModel orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         final CartItemAdapter cartItemAdapter = new CartItemAdapter(orderViewModel, total_price);
         orderViewModel.getAllOrders().observe(this, list -> {
