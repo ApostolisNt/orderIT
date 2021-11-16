@@ -3,12 +3,10 @@ package com.example.orderit;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.spark.submitbutton.SubmitButton;
 
 public class CartActivity extends AppCompatActivity {
@@ -32,12 +30,10 @@ public class CartActivity extends AppCompatActivity {
         });
         cartRecycler.setAdapter(cartItemAdapter);
 
-        // set Table name
+        // ΜΑΣ ΔΕΙΧΝΕΙ ΤΟ ΤΡΑΠΕΖΙ ΠΟΥ ΕΧΕΙ ΕΠΙΛΕΧΘΕΙ ΑΠΟ ΤΗΝ MAIN ACTIVITY
         final String tableName = getSharedPreferences("shared", Context.MODE_PRIVATE).getString("tableName", "0");
         final TextView tableNameText = findViewById(R.id.table_name);
         tableNameText.setText(String.format("Table : %s", tableName));
-
-
 
         paymentButton.setOnClickListener(view -> {
             try {

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orderit.models.Category;
 import com.example.orderit.models.Food;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,6 +27,7 @@ public class MenuActivity extends AppCompatActivity {
     DatabaseReference categoryRef;
     DatabaseReference foodRef;
 
+    //ΔΗΜΙΟΥΡΓΕΙ ΕΝΑ SLIDE ANIMATION ΜΕΤΑΞΥ ΤΩΝ ACTIVITIES
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +49,8 @@ public class MenuActivity extends AppCompatActivity {
         foodRef = database.getReference().child("food");
         loadCat();
     }
+
+    //ΣΤΗΝ ΕΠΙΛΟΓΗ ΚΑΤΗΓΟΡΙΑΣ ΕΜΦΑΝΙΖΕΙ ΤΟ ΜΕΝΟΥ
     private void loadCat() {
         cat_options = new FirebaseRecyclerOptions.Builder<Category>().setQuery(categoryRef, Category.class).build();
         final CategoryAdapter cat_adapter = new CategoryAdapter(cat_options, recycler_menu, this);

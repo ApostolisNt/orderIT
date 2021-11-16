@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.orderit.models.Order;
-
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolder> {
@@ -56,18 +52,15 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
             calculateTotalPrice(order.getPrice());
             orderViewModel.updateOrder(order);
         });
-
         holder.minus_cart.setOnClickListener(v -> {
             if (order.getQuantity() == 1) return;
             order.setQuantity(order.getQuantity() - 1);
             holder.quantity.setText(String.valueOf(order.getQuantity()));
-            holder.price_value.setText(String.format("Price : %.2f\u20ac",order.getPrice() * order.getQuantity()));
+            holder.price_value.setText(String.format("Price : n %.2f\u20ac",order.getPrice() * order.getQuantity()));
             // calculate total price
             calculateTotalPrice(-order.getPrice());
             orderViewModel.updateOrder(order);
         });
-
-
         holder.delete.setOnClickListener(v -> orderViewModel.deleteOrders(order));
     }
 
@@ -89,9 +82,7 @@ class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.CartItemHolde
     }
 
     String getReceipt() {
-        return list.stream().map(order -> {
-            return String.format("%s: %s x %s", order.getProductName(), order.getPrice(), order.getQuantity());
-        }).collect(Collectors.joining("\n"));
+        return list.stream().map(order -> String.format("%s: %s x %s", order.getProductName(), order.getPrice(), order.getQuantity())).collect(Collectors.joining("\n"));
     }
 
     public static class CartItemHolder extends RecyclerView.ViewHolder {

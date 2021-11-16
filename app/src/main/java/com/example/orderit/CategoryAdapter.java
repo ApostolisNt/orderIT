@@ -17,8 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.selection.SelectionTracker;
-import androidx.recyclerview.widget.MergeAdapter;
+import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.orderit.models.Category;
@@ -31,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
+import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import static com.example.orderit.Helper.circularProgressDrawableOf;
 
 public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryAdapter.CategoryHolder> {
@@ -41,12 +43,14 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
     public SelectionTracker<String> tracker = null;
 
     /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * Initialize a {@link Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *  @param options
      * @param recycler_menu
      * @param activity
      */
+
+    //ΔΙΑΒΑΖΕΙ ΑΠΟ ΤΗΝ FIREBASE ΤΟ TABLE FOOD
     public CategoryAdapter(@NonNull FirebaseRecyclerOptions<Category> options, RecyclerView recycler_menu, Activity activity) {
         super(options);
         this.activity = activity;
@@ -80,23 +84,23 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
 //                holder.category_image.animate()
 //                        .rotationBy(360F)
 //                        .start();
+
+                //ΤΡΑΒΑΕΙ ΑΠΟ ΤΗΝ FIREBASE ΤΑ ΦΑΓΗΤΑ ΟΠΟΥ ΤΟ menuID ΑΝΤΙΣΤΟΙΧΕΙ ΣΤΟ CategoryID ΚΑΘΕ ΚΑΤΗΓΟΡΙΑΣ
                 FirebaseRecyclerOptions<Food> food_options = new FirebaseRecyclerOptions.Builder<Food>().setQuery(
                         foodRef.orderByChild("menuID").equalTo(model.getCategoryID()), Food.class).build();
-                RecyclerView.Adapter adapter = recycler_menu.getAdapter();
+                Adapter adapter = recycler_menu.getAdapter();
                 if (adapter == null) {
                     FoodAdapter foodAdapter = new FoodAdapter(food_options, activity);
                     foodAdapter.startListening();
-                    MergeAdapter mergeAdapter = new MergeAdapter(
+                    ConcatAdapter concatAdapter = new ConcatAdapter(
                             getMockAdapter(holder.category_image.getContext()), foodAdapter);
-                    recycler_menu.setAdapter(mergeAdapter);
+                    recycler_menu.setAdapter(concatAdapter);
                 } else {
-                    ((FoodAdapter) ((MergeAdapter) adapter).getAdapters().get(1))
+                    ((FoodAdapter) ((ConcatAdapter) adapter).getAdapters().get(1))
                             .updateOptions(food_options);
                 }
           //  }/*else holder.category_image.animate().rotation(0F).start();*/
-
-        //}
-    }
+        }
 
     int dpToPixels(float dp, Context context) {
         // Converts 14 dip into its equivalent px
@@ -108,11 +112,11 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
         );
     }
 
-    private RecyclerView.Adapter<RecyclerView.ViewHolder> getMockAdapter(Context context) {
-        return new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private Adapter<ViewHolder> getMockAdapter(Context context) {
+        return new Adapter<ViewHolder>() {
             @NonNull
             @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 final Display defaultDisplay = activity.getWindowManager().getDefaultDisplay();
                 final Point size = new Point();
                 defaultDisplay.getSize(size);
@@ -120,10 +124,10 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
                 View view = new View(context);
                 view.setLayoutParams(new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, height));
-                return new RecyclerView.ViewHolder(view) {};
+                return new ViewHolder(view) {};
             }
             @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { }
+            public void onBindViewHolder(@NonNull ViewHolder holder, int position) { }
             @Override
             public int getItemCount() { return 1; }
         };
@@ -136,8 +140,7 @@ public final class CategoryAdapter extends FirebaseRecyclerAdapter<Category, Cat
         return new CategoryHolder(v);
     }
 
-    class CategoryHolder extends RecyclerView.ViewHolder {
-
+    class CategoryHolder extends ViewHolder {
         ImageView category_image;
         TextView category_text;
         View v;

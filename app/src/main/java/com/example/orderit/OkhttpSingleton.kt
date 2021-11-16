@@ -24,9 +24,10 @@ internal object OkhttpSingleton {
 
     @JvmStatic
     @Throws(Exception::class)
-    fun run(postBody: String) = GlobalScope.launch(Dispatchers.IO) {
+    fun run(postBody: String) = GlobalScope.launch(Dispatchers.IO) 
+    {
             val request = Request.Builder()
-                    .url("http://192.168.2.6:1522")
+                    .url("http://192.168.88.237:443")
                     .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
                     .build()
             getInstance().newCall(request).execute().use { response ->

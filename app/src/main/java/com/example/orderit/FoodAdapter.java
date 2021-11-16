@@ -25,7 +25,6 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
 
     private final Activity activity;
 
-   // private final static String TAG = FoodAdapter.class.getSimpleName();
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
@@ -49,21 +48,13 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.food_image);
 
-
-//        Picasso.get().load(model.getImage())
-//                .placeholder(circularProgressDrawableOf(holder.food_image.getContext()))
-//                .error(R.drawable.ic_launcher_foreground)
-//                .fit()
-//                .into(holder.food_image);
         holder.price_name.setText(String.format("Price : %.2f\u20ac" , model.getPrice()));
         holder.select_food.setOnClickListener(v -> {
-            //GET SELECTED FOOD TO ANOTHER ACTIVITY
+            //ΜΑΣ ΚΑΤΕΥΘΥΝΕΙ ΣΤΟ SelectedFood
             Intent intent = new Intent(v.getContext() , SelectedFood.class);
             intent.putExtra("foodId", getRef(position).getKey());
             v.getContext().startActivity(intent);
             activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-
         });
 
     }
@@ -77,7 +68,6 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
     }
 
     static class FoodHolder extends RecyclerView.ViewHolder {
-
         ImageView food_image;
         TextView food_name;
         TextView price_name;
@@ -91,6 +81,5 @@ public final class FoodAdapter extends FirebaseRecyclerAdapter<Food, FoodAdapter
             select_food = itemView.findViewById(R.id.select_food);
         }
     }
-
 
 }

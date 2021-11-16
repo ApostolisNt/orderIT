@@ -1,10 +1,5 @@
 package com.example.orderit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -33,7 +33,6 @@ public class SelectedFood extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_food);
-//        calcImageSize();
         final CardView select_food_cv = findViewById(R.id.select_food_cv);
         final String foodId = getIntent().getStringExtra("foodId");
         final TextView food_name = findViewById(R.id.food_name);
@@ -43,7 +42,7 @@ public class SelectedFood extends AppCompatActivity {
         final View cart = findViewById(R.id.cart);
         final ImageView plus = findViewById(R.id.plus);
         final ImageView minus = findViewById(R.id.minus);
-        //go to cartActivity
+        //ΜΕΤΑΒΑΣΗ ΣΤΟ ΚΑΛΑΘΙ
         cart.setOnClickListener(v -> {
             startActivity(new Intent(this, CartActivity.class));
             overridePendingTransition(R.anim.slide_up_in, R.anim.slide_up_out);
@@ -51,8 +50,9 @@ public class SelectedFood extends AppCompatActivity {
 
         final Button addToCart = findViewById(R.id.add_to_cart);
         final OrderViewModel orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
-
         selected_food_img = findViewById(R.id.selected_food_img);
+
+        //ΔΗΜΙΟΥΡΓΕΙΤΑΙ ΤΟ SINGLE PRODUCT
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("food");
           if (foodId != null) {
             ref.child(foodId).addValueEventListener(new ValueEventListener() {
@@ -65,16 +65,16 @@ public class SelectedFood extends AppCompatActivity {
                         final String name = dataSnapshot.child("name").getValue(String.class);
                         final String descriptionStr = dataSnapshot.child("description").getValue(String.class);
                         final Double price = dataSnapshot.child("price").getValue(Double.class);
-
+                        //ΠΡΟΣΘΗΚΗ ΣΤΟ ΚΑΛΑΘΙ
                         addToCart.setOnClickListener(v -> {
                             final Order order = new Order(foodId, name, Integer.parseInt(quantity.getText().toString()), price);
                             orderViewModel.insertOrders(order);
                             Toast.makeText(SelectedFood.this, "Added To Cart", Toast.LENGTH_SHORT).show();
                         });
-
                         food_name.setText(name);
                         description.setText(descriptionStr);
                         price_name.setText(String.format("Price : %.2f\u20ac" , price ));
+                        //ΑΥΞΗΣΗ Ή ΜΕΙΩΣΗ ΤΗΣ ΠΟΣΟΤΗΤΑΣ
                         plus.setOnClickListener(v -> quantity.setText(
                                 String.valueOf(Integer.parseInt(quantity.getText().toString())+1))
                         );
@@ -83,7 +83,8 @@ public class SelectedFood extends AppCompatActivity {
                             if (val == 1) return;
                             quantity.setText(String.format("%d", val - 1));
                         });
-                        // Calculates dynamic height to equal width
+
+                        // ΥΠΟΛΟΓΙΖΕΙ ΤΟ ΔΥΝΑΜΙΚΟ ΥΨΟΣ ΣΤΟ ΙΔΙΟ ΠΛΑΤΟΣ
                         if (!isImageMeasured) {
                             select_food_cv.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                                 @Override
@@ -94,7 +95,6 @@ public class SelectedFood extends AppCompatActivity {
                                     select_food_cv.getLayoutParams().height = measuredWidth;
                                     //  setRadius to Half width for circle
                                     select_food_cv.setRadius((float) measuredWidth / 2F);
-
                                     setImage(image);
                                     select_food_cv.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                                 }
@@ -104,7 +104,6 @@ public class SelectedFood extends AppCompatActivity {
                         }
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -112,7 +111,6 @@ public class SelectedFood extends AppCompatActivity {
             });
         }
     }
-
     private void setImage(String url) {
         Glide.with(getApplicationContext())
             .load(url)
@@ -122,7 +120,6 @@ public class SelectedFood extends AppCompatActivity {
             .error(R.drawable.ic_launcher_foreground)
             .into(selected_food_img);
     }
-
     @Override
     public void finish() {
         super.finish();
